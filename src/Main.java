@@ -24,5 +24,21 @@ public class Main {
         cap1111.add(new Image("Image subchapter 1.1.1.1"));
 
         noapteBuna.print();
+        Section s1 = new Section("Section 1");
+        Section s2 = new Section("Section 2");
+
+        Paragraph p = new Paragraph("Test paragraph");
+
+        s1.add(p);
+
+        try {
+            s2.add(p);
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
+
+        s1.remove(p);
+        s2.add(p);
+        s2.print();
     }
 }

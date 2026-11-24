@@ -1,4 +1,4 @@
-public class Paragraph implements Element {
+public class Paragraph extends Element {
     private String text;
 
     public Paragraph(String text) {
@@ -8,20 +8,5 @@ public class Paragraph implements Element {
     @Override
     public void print() {
         System.out.println("Paragraph: " + text);
-    }
-
-    @Override
-    public void add(Element element) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void remove(Element element) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Element get(int index) {
-        throw new UnsupportedOperationException();
     }
 }
