@@ -9,13 +9,25 @@ public class Section extends Element {
         this.title = title;
     }
 
-    @Override
-    public void print() {
-        System.out.println(title);
+    public String getTitle() {
+        return title;
+    }
 
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+        acceptChildren(visitor);
+    }
+
+    protected void acceptChildren(Visitor visitor) {
         for (Element element : elements) {
-            element.print();
+            element.accept(visitor);
         }
+    }
+
+    @Override
+    public void render() {
+        System.out.println(title);
     }
 
     @Override

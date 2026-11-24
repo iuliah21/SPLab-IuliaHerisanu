@@ -2,12 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Book extends Section {
-    private String bookTitle;
     private List<Author> authors = new ArrayList<>();
 
     public Book(String title) {
-        super("");
-        this.bookTitle = title;
+        super(title);
     }
 
     public void addAuthor(Author author) {
@@ -19,8 +17,14 @@ public class Book extends Section {
     }
 
     @Override
-    public void print() {
-        System.out.println("Book: " + bookTitle);
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+        acceptChildren(visitor);
+    }
+
+    @Override
+    public void render() {
+        System.out.println("Book: " + title);
         System.out.println();
         System.out.println("Authors:");
 
@@ -28,6 +32,6 @@ public class Book extends Section {
             author.print();
         }
 
-        super.print();
+        System.out.println();
     }
 }

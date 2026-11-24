@@ -9,7 +9,9 @@ public abstract class Element {
         this.parent = parent;
     }
 
-    public abstract void print();
+    public abstract void accept(Visitor visitor);
+
+    public abstract void render();
 
     public void add(Element element) {
         throw new UnsupportedOperationException();

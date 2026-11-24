@@ -32,7 +32,12 @@ public class ImageProxy extends Element implements Picture {
     }
 
     @Override
-    public void print() {
-        loadImage().print();
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void render() {
+        loadImage().render();
     }
 }
