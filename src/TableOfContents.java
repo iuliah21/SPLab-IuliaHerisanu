@@ -1,18 +1,22 @@
-import java.util.ArrayList;
-import java.util.List;
-
-public class TableOfContents extends Element {
-    private final List<String> entries = new ArrayList<>();
-
-    public void addEntry(String title, int page) {
-        entries.add(title + " ... " + page);
-    }
+public class TableOfContents implements Element {
 
     @Override
     public void print() {
-        System.out.println("Table of Contents:");
-        for (String entry : entries) {
-            System.out.println(entry);
-        }
+        System.out.println("Table of Contents");
+    }
+
+    @Override
+    public void add(Element element) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void remove(Element element) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Element get(int index) {
+        throw new UnsupportedOperationException();
     }
 }
