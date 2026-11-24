@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public class BookStatistics implements Visitor {
     private int images;
     private int tables;

@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public class Table extends Element {
     private String title;
 

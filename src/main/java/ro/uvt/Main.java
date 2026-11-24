@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public class Main {
     public static void main(String[] args) {
         Section cap1 = new Section("Capitolul 1");

@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public abstract class Element {
     private Section parent;
 

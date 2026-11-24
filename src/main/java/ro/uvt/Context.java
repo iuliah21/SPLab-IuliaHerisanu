@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public class Context {
     private int width;
 

@@ -1,3 +1,5 @@
+package ro.uvt;
+
 import java.awt.Dimension;
 import java.util.concurrent.TimeUnit;
 

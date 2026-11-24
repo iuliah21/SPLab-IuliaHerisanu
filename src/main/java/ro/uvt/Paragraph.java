@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public class Paragraph extends Element {
     private String text;
     private AlignStrategy alignStrategy;

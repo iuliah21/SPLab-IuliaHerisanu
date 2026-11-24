@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public class PictureContent {
     private String content;
 

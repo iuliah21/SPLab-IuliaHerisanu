@@ -1,3 +1,5 @@
+package ro.uvt;
+
 import java.awt.Dimension;
 
 public class ImageProxy extends Element implements Picture {

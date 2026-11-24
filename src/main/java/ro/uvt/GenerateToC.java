@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public class GenerateToC implements Visitor {
     private TableOfContents tableOfContents =
             new TableOfContents();

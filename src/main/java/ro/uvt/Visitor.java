@@ -1,3 +1,5 @@
+package ro.uvt;
+
 public interface Visitor {
     void visit(Book book);
     void visit(Section section);
