@@ -1,10 +1,18 @@
 package ro.uvt;
 
+import jakarta.persistence.*;
+
 import java.awt.Dimension;
 
+@Entity
 public class ImageProxy extends Element implements Picture {
     private String url;
+
+    @Transient
     private Image realImage;
+
+    public ImageProxy() {
+    }
 
     public ImageProxy(String url) {
         this.url = url;
@@ -16,6 +24,10 @@ public class ImageProxy extends Element implements Picture {
         }
 
         return realImage;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override

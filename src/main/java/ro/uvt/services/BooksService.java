@@ -1,60 +1,61 @@
 package ro.uvt.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
+import ro.uvt.Book;
+import ro.uvt.persistence.BooksRepository;
+
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
+@Transactional
 public class BooksService {
-    private final Map<Long, BookDto> books =
-            new ConcurrentHashMap<>();
+    private final BooksRepository repository;
 
-    private final AtomicLong nextId = new AtomicLong(1);
+    public BooksService(BooksRepository repository) {
+        this.repository = repository;
+    }
 
     public List<BookDto> getBooks() {
-        return List.copyOf(books.values());
+        return repository.findAll()
+                .stream()
+                .map(this::toDto)
+                .toList();
     }
 
     public BookDto getBook(long id) {
-        BookDto book = books.get(id);
-
-        if (book == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Book not found");
-        }
-
-        return book;
+        return toDto(findBook(id));
     }
 
     public BookDto createBook(BookRequest request) {
-        long id = nextId.getAndIncrement();
-        BookDto book = new BookDto(id, request.title());
+        Book book = new Book(request.title());
 
-        books.put(id, book);
-
-        return book;
+        return toDto(repository.save(book));
     }
 
     public BookDto updateBook(long id, BookRequest request) {
-        BookDto book = new BookDto(id, request.title());
+        Book book = findBook(id);
+        book.setTitle(request.title());
 
-        if (books.replace(id, book) == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Book not found");
-        }
-
-        return book;
+        return toDto(repository.save(book));
     }
 
     public void deleteBook(long id) {
-        if (books.remove(id) == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Book not found");
-        }
+        repository.delete(findBook(id));
+    }
+
+    private Book findBook(long id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Book not found"));
+    }
+
+    private BookDto toDto(Book book) {
+        return new BookDto(book.getId(), book.getTitle());
     }
 }

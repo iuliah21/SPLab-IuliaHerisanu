@@ -1,12 +1,22 @@
 package ro.uvt;
 
+import jakarta.persistence.*;
+
 import java.awt.Dimension;
 import java.util.concurrent.TimeUnit;
 
+@Entity
 public class Image extends Element implements Picture {
     private String imageName;
-    private Dimension dimension;
+
+    @Transient
+    private Dimension dimension = new Dimension(0, 0);
+
+    @Transient
     private PictureContent imageContent;
+
+    public Image() {
+    }
 
     public Image(String imageName) {
         this.imageName = imageName;
@@ -17,8 +27,11 @@ public class Image extends Element implements Picture {
             Thread.currentThread().interrupt();
         }
 
-        dimension = new Dimension(0, 0);
         imageContent = new PictureContent(imageName);
+    }
+
+    public String getImageName() {
+        return imageName;
     }
 
     @Override
@@ -33,6 +46,10 @@ public class Image extends Element implements Picture {
 
     @Override
     public PictureContent content() {
+        if (imageContent == null) {
+            imageContent = new PictureContent(imageName);
+        }
+
         return imageContent;
     }
 

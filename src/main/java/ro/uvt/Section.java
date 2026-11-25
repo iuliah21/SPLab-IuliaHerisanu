@@ -1,11 +1,24 @@
 package ro.uvt;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Section extends Element {
     protected String title;
+
+    @OneToMany(
+            mappedBy = "parent",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OrderColumn(name = "element_order")
     private List<Element> elements = new ArrayList<>();
+
+    public Section() {
+    }
 
     public Section(String title) {
         this.title = title;
@@ -13,6 +26,14 @@ public class Section extends Element {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<Element> getElements() {
+        return elements;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override

@@ -1,9 +1,19 @@
 package ro.uvt;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Paragraph extends Element {
     private String text;
+
+    @Transient
     private AlignStrategy alignStrategy;
+
+    @Transient
     private Context context = new Context(40);
+
+    public Paragraph() {
+    }
 
     public Paragraph(String text) {
         this.text = text;
