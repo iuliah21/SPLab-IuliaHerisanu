@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Books</title>
+</head>
+<body>
+
+<h1>All Books</h1>
+
+<a href="javascript:void(0)" onclick="sendRequest()">Fetch Books</a>
+
+<div id="status"></div>
+<div id="sseDiv"></div>
+
+<script>
+    let source;
+
+    function sendRequest() {
+        if (typeof EventSource !== "undefined") {
+            if (source) {
+                source.close();
+            }
+
+            source = new EventSource("/books-sse");
+
+            source.onopen = function () {
+                document.getElementById("status").textContent =
+                    "Connected to server";
+            };
+
+            source.onmessage = function (event) {
+                const data = JSON.parse(event.data);
+
+                const entry = document.createElement("p");
+                entry.textContent = data.id + " - " + data.title;
+
+                document.getElementById("sseDiv").appendChild(entry);
+            };
+
+            source.onerror = function () {
+                document.getElementById("status").textContent =
+                    "Connection interrupted. Reconnecting...";
+            };
+        } else {
+            document.getElementById("sseDiv").textContent =
+                "Your browser does not support server-sent events.";
+        }
+    }
+</script>
+
+</body>
+</html>

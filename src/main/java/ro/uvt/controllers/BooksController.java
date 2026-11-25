@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import ro.uvt.commands.*;
 import ro.uvt.services.*;
+import ro.uvt.observer.AllBooksSubject;
 
 import java.util.List;
 
@@ -13,11 +14,15 @@ import java.util.List;
 public class BooksController {
     private final BooksService service;
     private final SyncCommandExecutor executor;
+    private final AllBooksSubject allBooksSubject;
 
-    public BooksController(BooksService service,
-                           SyncCommandExecutor executor) {
+    public BooksController(
+            BooksService service,
+            SyncCommandExecutor executor,
+            AllBooksSubject allBooksSubject) {
         this.service = service;
         this.executor = executor;
+        this.allBooksSubject = allBooksSubject;
     }
 
     @GetMapping
@@ -35,8 +40,11 @@ public class BooksController {
     @PostMapping
     public ResponseEntity<BookDto> createBook(
             @RequestBody BookRequest request) {
+
         BookDto book = executor.execute(
                 new CreateBookCommand(service, request)).join();
+
+        allBooksSubject.add(book);
 
         return ResponseEntity.status(201).body(book);
     }
