@@ -6,16 +6,16 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
 import ro.uvt.Book;
-import ro.uvt.persistence.BooksRepository;
+import ro.uvt.persistence.CrudRepository;
 
 import java.util.List;
 
 @Service
 @Transactional
 public class BooksService {
-    private final BooksRepository repository;
+    private final CrudRepository<Book, Long> repository;
 
-    public BooksService(BooksRepository repository) {
+    public BooksService(CrudRepository<Book, Long> repository) {
         this.repository = repository;
     }
 
