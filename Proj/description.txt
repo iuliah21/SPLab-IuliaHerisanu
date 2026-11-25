@@ -1,0 +1,34 @@
+**Titlul proiectului: Restaurant Menu Manager**
+
+Proiectul constă în dezvoltarea unei aplicații pentru organizarea și administrarea meniurilor restaurantelor, utilizând o structură arborescentă de date.
+
+**Structura arborescentă:**
+
+Restaurant → Meniu → Categorie → Preparat
+
+Fiecare preparat va conține următoarele informații:
+- Denumire
+- Descriere
+- Preț
+- Ingrediente
+- Număr de calorii
+- Timp de preparare
+- Disponibilitate
+
+**Funcționalități principale:**
+- Adăugarea restaurantelor, meniurilor, categoriilor și preparatelor (Add).
+- Vizualizarea datelor sub forma unei structuri arborescente (View).
+- Generarea unui rezumat care va include numărul total de preparate, prețul mediu, prețul minim și maxim și numărul preparatelor disponibile (Summary).
+- Modificarea și ștergerea elementelor existente.
+
+**Tehnologii utilizate:**
+- Java
+- Spring Boot
+- RESTful API
+- Spring Data JPA
+- H2 Database
+- HTML, CSS și JavaScript
+- Git și GitHub
+
+Aplicația va dispune de o interfață web simplă care va permite utilizatorului să gestioneze meniurile restaurantelor.
+
